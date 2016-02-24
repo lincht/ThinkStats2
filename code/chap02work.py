@@ -5,9 +5,9 @@ def Mode(hist):
 	"""return the mode of histogram
 	"""
 	mode = 0
-	freq = 0
+	mode_freq = 0
 	for value, freq in hist.Items():
-		if freq > freq:
+		if  freq > mode_freq:
 			mode = value
-			freq = freq
+			mode_freq = freq
 	return mode
