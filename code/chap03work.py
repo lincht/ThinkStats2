@@ -16,7 +16,7 @@ def PmfVar(pmf):
         var += p * ((x - mean) ** 2)
     return var
 
-#Exercise 3.3
+# Exercise 3.3
 df = nsfg.ReadFemPreg()
 live = df[df.outcome == 1]
 live = live[live.prglngth >= 37]
@@ -43,3 +43,24 @@ def PairWiseDifference(live):
     pmf = thinkstats2.Pmf(diffs)
     thinkplot.Hist(pmf, align='center')
     thinkplot.Show(xlabel='difference in weeks', ylabel='PMF')
+
+# Exercise 3.4
+import relay
+
+def ObservedPmf(pmf, ob_speed, label=None):
+    observed = pmf.Copy(label=label)
+    for speed, prob in observed.Items():
+        diff = abs(ob_speed - speed)
+        observed.Mult(speed, diff)
+        observed.Normalize()
+    return observed
+
+results = relay.ReadResults()
+speeds = relay.GetSpeeds(results)
+bin = relay.BinData(speeds, 3, 12, 100)
+
+pmf = thinkstats2.Pmf(bin, label='actual speeds')
+observed = ObservedPmf(pmf, 7.5, label='observed speeds')
+
+thinkplot.Pmf(observed)
+thinkplot.Show(xlabel='speed', ylabel='PMF')
