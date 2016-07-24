@@ -38,7 +38,7 @@
 
 \newcommand{\thetitle}{Think Stats}
 \newcommand{\thesubtitle}{Exploratory Data Analysis in Python}
-\newcommand{\theversion}{2.0.30}
+\newcommand{\theversion}{2.0.31}
 
 % these styles get translated in CSS for the HTML version
 \newstyle{a:link}{color:black;}
@@ -1174,7 +1174,7 @@ to compare with the published data:
 \index{Series}
 
 \begin{verbatim}
->>> df.outcome.value_counts().sort_index()
+>>> df.outcome.value_counts(sort=False)
 1    9148
 2    1862
 3     120
@@ -1184,8 +1184,8 @@ to compare with the published data:
 \end{verbatim}
 
 The result of \verb"value_counts" is a Series;
-\verb"sort_index" sorts the Series by index, so the
-values appear in order.
+\verb"sort=False" doesn't sort the Series by values, so them
+appear in order.
 
 Comparing the results with the published table, it looks like the
 values in {\tt outcome} are correct.  Similarly, here is the published
@@ -1204,7 +1204,7 @@ value	label                  Total
 And here are the value counts:
 
 \begin{verbatim}
->>> df.birthwgt_lb.value_counts().sort_index()
+>>> df.birthwgt_lb.value_counts(sort=False)
 0        8
 1       40
 2       53
@@ -1285,7 +1285,7 @@ for her pregnancies:
 
 \begin{verbatim}
 >>> caseid = 10229
->>> preg_map = MakePregMap(df)
+>>> preg_map = nsfg.MakePregMap(df)
 >>> indices = preg_map[caseid]
 >>> df.outcome[indices].values
 [4 4 4 4 4 4 1]
@@ -2067,7 +2067,7 @@ A solution to this exercise is in \verb"chap02soln.ipynb"
 \end{exercise}
 
 In the repository you downloaded, you should find a file named
-\verb"chap01ex.py"; you can use this file as a starting place
+\verb"chap02ex.py"; you can use this file as a starting place
 for the following exercises.
 My solution is in \verb"chap02soln.py".
 
@@ -3104,7 +3104,7 @@ and percentile ranks.  The Cdf class provides these two methods:
 \item {\tt PercentileRank(x)}: Given a value {\tt x}, computes its
   percentile rank, $100 \cdot \CDF(x)$.
 
-\item {\tt Percentile(p)}: Given a percentile rank {\tt rank},
+\item {\tt Percentile(p)}: Given a percentile rank {\tt p},
   computes the corresponding value, {\tt x}.  Equivalent to {\tt
     Value(p/100)}.
 
